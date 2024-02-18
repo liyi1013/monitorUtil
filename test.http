@@ -1,0 +1,60 @@
+### http check test 1
+GET http://localhost:8080/check/http
+Content-Type: application/json
+
+{
+  "url": "http://localhost/api/tasks/add",
+  "timeout": 5
+}
+
+### http check test 2
+GET http://localhost:8080/check/http
+Content-Type: application/json
+
+{
+  "url": "http://baidu.com",
+  "timeout": 5
+}
+
+
+
+### mysql check test 1
+GET http://localhost:8080/check/mysql
+Content-Type: application/json
+
+{
+  "host": "localhost",
+  "port": "3306",
+  "db": "1",
+  "user": "root",
+  "pwd": "root1234",
+  "timeout": 5
+}
+
+
+### mysql check test 2
+GET http://localhost:8080/check/mysql
+Content-Type: application/json
+
+{
+  "host": "localhost",
+  "port": "3306",
+  "db": "db1",
+  "user": "root",
+  "pwd": "1234",
+  "timeout": 3
+}
+
+
+### oracle check test 1
+GET http://localhost:8080/check/oracle
+Content-Type: application/json
+
+{
+  "host": "localhost",
+  "port": "1521",
+  "db": "db1",
+  "user": "root",
+  "pwd": "1234",
+  "timeout": 3
+}

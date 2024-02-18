@@ -1,0 +1,350 @@
+definitions:
+  app.requestHttpCheck:
+    properties:
+      timeout:
+        description: 检查的超时设置
+        type: integer
+      url:
+        description: 检查的url
+        type: string
+    type: object
+  app.requestMysqlCheck:
+    properties:
+      db:
+        description: 检查的实例名
+        type: string
+      host:
+        description: 检查的实例所在的ip
+        type: string
+      port:
+        description: 检查的实例的端口
+        type: string
+      pwd:
+        description: 检查的实例的用户密码
+        type: string
+      timeout:
+        description: 检查的超时设置
+        type: integer
+      user:
+        description: 检查的实例的用户
+        type: string
+    type: object
+  app.requestOracleCheck:
+    properties:
+      db:
+        description: 检查的实例名
+        type: string
+      host:
+        description: 检查的实例所在的ip
+        type: string
+      port:
+        description: 检查的实例所在的端口
+        type: integer
+      pwd:
+        description: 检查的实例的密码
+        type: string
+      timeout:
+        description: 检查的超时设置
+        type: integer
+      user:
+        description: 检查的实例的用户
+        type: string
+    type: object
+  app.requestPortCheck:
+    properties:
+      ip:
+        description: 检查的ip
+        type: string
+      port:
+        description: 检查的端口
+        type: string
+      timeout:
+        description: 检查的超时
+        type: integer
+    type: object
+  app.requestPostCheck:
+    properties:
+      body:
+        description: 请求的body
+        type: string
+      timeout:
+        description: 检查的超时设置
+        type: integer
+      url:
+        description: 检查的url
+        type: string
+    type: object
+  app.requestToken:
+    properties:
+      expireTimeHours:
+        description: token超时时间
+        type: integer
+      pwd:
+        description: 密码
+        type: string
+      user:
+        description: 用户
+        type: string
+    type: object
+  app.responseHttpCheck:
+    properties:
+      check_res:
+        description: 检查返回结果
+        type: string
+      check_res_code:
+        description: 检查返回码，约定如果检查异常返回码为1，其他为http返回码如200
+        type: integer
+      err:
+        description: 调用错误详细输出信息
+        type: string
+      err_msg:
+        description: 调用错误概要信息
+        type: string
+      res:
+        description: url请求的返回的body
+        type: string
+    type: object
+  app.responseMysqlCheck:
+    properties:
+      check_res:
+        description: 检查返回结果
+        type: string
+      check_res_code:
+        description: 检查返回码
+        type: integer
+      err:
+        description: 调用错误详细输出信息
+        type: string
+      err_msg:
+        description: 调用错误概要信息
+        type: string
+    type: object
+  app.responseOracleCheck:
+    properties:
+      check_res:
+        description: 检查返回结果
+        type: string
+      check_res_code:
+        description: 检查返回码
+        type: integer
+      err:
+        description: 调用错误详细输出信息
+        type: string
+      err_msg:
+        description: 调用错误概要信息
+        type: string
+    type: object
+  app.responsePortCheck:
+    properties:
+      check_res:
+        description: 检查返回结果
+        type: string
+      check_res_code:
+        description: 检查返回码
+        type: integer
+      err:
+        description: 调用错误详细输出信息
+        type: string
+      err_msg:
+        description: 调用错误概要信息
+        type: string
+    type: object
+  app.responsePostCheck:
+    properties:
+      check_res:
+        description: 检查返回结果
+        type: string
+      check_res_code:
+        description: 检查返回码，约定如果检查异常返回码为1，其他为http返回码如200
+        type: integer
+      err:
+        description: 调用错误详细输出信息
+        type: string
+      err_msg:
+        description: 调用错误概要信息
+        type: string
+      res:
+        description: url请求的返回
+        type: string
+    type: object
+  app.responseToken:
+    properties:
+      check_res:
+        description: 检查返回结果
+        type: string
+      check_res_code:
+        description: 检查返回码
+        type: integer
+      err:
+        description: 调用错误详细输出信息
+        type: string
+      err_msg:
+        description: 调用错误概要信息
+        type: string
+    type: object
+info:
+  contact: {}
+paths:
+  /auth/updatetoken:
+    post:
+      consumes:
+      - application/json
+      description: 更新token
+      parameters:
+      - description: body
+        in: body
+        name: requestToken
+        required: true
+        schema:
+          $ref: '#/definitions/app.requestToken'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ok
+          schema:
+            $ref: '#/definitions/app.responseToken'
+      summary: 更新token
+      tags:
+      - auth
+  /check/http:
+    post:
+      consumes:
+      - application/json
+      description: 用于http连接检查
+      parameters:
+      - description: Token
+        in: header
+        name: authorization
+        type: string
+      - description: body
+        in: body
+        name: requestHttpCheck
+        required: true
+        schema:
+          $ref: '#/definitions/app.requestHttpCheck'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ok
+          schema:
+            $ref: '#/definitions/app.responseHttpCheck'
+      security:
+      - jwt: []
+      summary: http检查
+      tags:
+      - HttpCheck
+  /check/mysql:
+    post:
+      consumes:
+      - application/json
+      description: 用于mysql连通性检查
+      parameters:
+      - description: Token
+        in: header
+        name: authorization
+        type: string
+      - description: body
+        in: body
+        name: requestMysqlCheck
+        required: true
+        schema:
+          $ref: '#/definitions/app.requestMysqlCheck'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ok
+          schema:
+            $ref: '#/definitions/app.responseMysqlCheck'
+      security:
+      - jwt: []
+      summary: mysql检查
+      tags:
+      - MysqlCheck
+  /check/oracle:
+    post:
+      consumes:
+      - application/json
+      description: 用于oracle连通性检查
+      parameters:
+      - description: Token
+        in: header
+        name: authorization
+        type: string
+      - description: body
+        in: body
+        name: requestOracleCheck
+        required: true
+        schema:
+          $ref: '#/definitions/app.requestOracleCheck'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ok
+          schema:
+            $ref: '#/definitions/app.responseOracleCheck'
+      security:
+      - jwt: []
+      summary: oracle检查
+      tags:
+      - OracleCheck
+  /check/port:
+    post:
+      consumes:
+      - application/json
+      description: 用于port连接检查
+      parameters:
+      - description: Token
+        in: header
+        name: authorization
+        type: string
+      - description: body
+        in: body
+        name: requestPortCheck
+        required: true
+        schema:
+          $ref: '#/definitions/app.requestPortCheck'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ok
+          schema:
+            $ref: '#/definitions/app.responsePortCheck'
+      security:
+      - jwt: []
+      summary: port检查
+      tags:
+      - PortCheck
+  /check/post:
+    post:
+      consumes:
+      - application/json
+      description: 用于http连接检查
+      parameters:
+      - description: Token
+        in: header
+        name: authorization
+        type: string
+      - description: body
+        in: body
+        name: requestPostCheck
+        required: true
+        schema:
+          $ref: '#/definitions/app.requestPostCheck'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ok
+          schema:
+            $ref: '#/definitions/app.responsePostCheck'
+      security:
+      - jwt: []
+      summary: post检查
+      tags:
+      - PostCheck
+swagger: "2.0"
