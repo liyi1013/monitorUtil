@@ -15,6 +15,12 @@ repositories {
 	mavenCentral()
 }
 
+configurations {
+	all*.exclude group: 'org.springframework.boot', module: 'spring-boot-starter-logging'
+	all*.exclude group: 'ch.qos.logback', module: 'logback-classic'
+	all*.exclude group: 'ch.qos.logback', module: 'logback-core'
+}
+
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'cn.hutool:hutool-all:5.7.10'
@@ -23,9 +29,16 @@ dependencies {
 	implementation group: 'org.apache.logging.log4j', name: 'log4j-slf4j-impl', version: '2.20.0'
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
-
+//	exclude group: 'org.springframework.security', module: 'spring-security-web'
 }
+
 
 tasks.named('test') {
 	useJUnitPlatform()
 }
+
+//compile("org.springframework.boot:spring-boot-starter-log4j") {
+//        exclude module: "spring-boot-starter-logging"
+//        exclude module: "logback-classic"
+//        exclude module: "ch.qos.logback"
+//}
